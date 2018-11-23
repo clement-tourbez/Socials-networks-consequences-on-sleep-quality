@@ -1,0 +1,33 @@
+---
+title: "Data_social_network"
+author: "clement-tourbez"
+date: "13/11/2018"
+output: html_document
+---
+
+```{r}
+data <- read(https://docs.google.com/spreadsheets/d/1BnMnOF1FLznSlbNWeLJizw3dIHuJdnrZtPKg_O3NE1g/edit?ts=5bea9268/export?format=csv)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
