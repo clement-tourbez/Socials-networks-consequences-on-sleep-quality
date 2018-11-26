@@ -6,6 +6,9 @@ output: html_document
 ---
 #Introduction
 
+![](../Figures/figure3.jpg)
+![](../Figures/figure2.jpg)
+![](../Figures/figure1.jpg)
 
 
 
