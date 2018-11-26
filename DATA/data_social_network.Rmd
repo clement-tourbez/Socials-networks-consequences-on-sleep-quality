@@ -55,23 +55,71 @@ skimr::skim(sleep)
 
 ##Charts and analysis
 
-###
+###Global  repartition of the time spend for social networks and video game in relation with the age
 
 ```{r}
-chart(sleep, ~ facebook_and_messenger_time %fill=% age) + geom_bar(na.rm = TRUE)
+chart(sleep,video_game_time ~ age %col=% age) + geom_point(na.rm = TRUE)
 ```
+
+```{r}
+chart(sleep,~ video_game_time  %col=%sex) + geom_density(na.rm = TRUE) 
+```
+
 
 #####Analysis
-
-###
+```{r}
+chart(sleep,facebook_and_messenger_time ~age %col=%age) + geom_point(na.rm = TRUE) 
+```
 
 ```{r}
-chart(sleep,facebook_and_messenger_time ~age %col=%age) + geom_point() 
+chart(sleep,~ facebook_and_messenger_time  %col=%sex) + geom_density(na.rm = TRUE) 
+```
+
+
+###Repartition of the three phone use variants
+
+```{r}
+
+  chart(sleep, ~ facebook_and_messenger_time |age)+geom_bar(width = 1,na.rm=TRUE) 
 ```
 
 
 
 
+###Relation between the time spend on social networks (and video games) and the sleeping hours
+
+```{r}
+sleep <- mutate(sleep, sleeping_time = 24-bed_time+wake_up_time)
+
+sleep
+  
+```
+
+```{r}
+## Cutting sleep$other_social_network_time into sleep$other_social_network_time_rec
+sleep$other_social_network_time_rec <- cut(sleep$other_social_network_time, include.lowest=FALSE,  right=TRUE,
+                                           breaks=c(0, 1, 2, 5))
+
+## Cutting sleep$facebook_and_messenger_time into sleep$facebook_and_messenger_time_rec
+sleep$facebook_and_messenger_time_rec <- cut(sleep$facebook_and_messenger_time, include.lowest=FALSE,  right=TRUE,
+                                             breaks=c(0, 0.5, 1, 2, 3))
+
+
+a<- chart(sleep,~bed_time %fill=%other_social_network_time_rec) + geom_bar(position = "dodge")
+
+b<-chart(sleep,~bed_time %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge")
+
+combine_charts(list (a,b))
+```
+
+```{r}
+## Cutting sleep$video_game_time into sleep$video_game_time_rec
+sleep$video_game_time_rec <- cut(sleep$video_game_time, include.lowest=FALSE,  right=TRUE,
+                                 breaks=c(0, 1, 2, 3, 5, 10, 15, 25))
+
+
+chart(sleep,~bed_time %fill=%video_game_time_rec) + geom_bar(position = "dodge",na.rm=TRUE)
+```
 
 
 #Discussion and evaluation
