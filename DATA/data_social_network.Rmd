@@ -35,16 +35,26 @@ SciViews::R
 sleep <- read_csv("https://docs.google.com/spreadsheets/d/15bi2eKujJLabLjSyodTHFJKFzx1dk-GtS9fnImSb1-Y/export?format=csv", locale = locale(decimal_mark = ","))
 ```
 
-```{r global view}
-knitr::
+```{r}
+sleep$sex <- as.factor(sleep$sex)
+
+
+```
+
+
+```{r global view , eval=FALSE}
+skimr::skim(sleep)
 ```
 
 
 
 ##Charts and analysis
 
+###
 
-
+```{r}
+chart(sleep, ~ facebook_and_messenger_time %col=% age) + geom_histogram(na.rm = TRUE)
+```
 
 
 
