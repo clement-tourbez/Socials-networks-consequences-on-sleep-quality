@@ -5,14 +5,12 @@ date: "13/11/2018"
 output: html_document
 ---
 #Introduction
-<<<<<<< HEAD
-Recently, there have been a lot of discussions about the effects of social network and video game on sleeping hours. We wanted to 
-=======
+Recently, there have been a lot of discussions about the effects of social network and video games on sleeping hours. We wanted to make some research about that subject and thus we gather some data about some factors that may help us understands the influence of video games and social network and the differences between genders
+
 
 ![](../Figures/figure3.jpg)
 ![](../Figures/figure2.jpg)
 ![](../Figures/figure1.jpg)
->>>>>>> 57319106605e7c6e6e4299d2dda37171ffd8aa77
 
 
 
