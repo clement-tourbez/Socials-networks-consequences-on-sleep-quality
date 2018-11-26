@@ -5,14 +5,14 @@ date: "13/11/2018"
 output: html_document
 ---
 #Introduction
-<<<<<<< HEAD
+
 Recently, there have been a lot of discussions about the effects of social network and video game on sleeping hours. We wanted to 
-=======
+
 
 ![](../Figures/figure3.jpg)
 ![](../Figures/figure2.jpg)
 ![](../Figures/figure1.jpg)
->>>>>>> 57319106605e7c6e6e4299d2dda37171ffd8aa77
+
 
 
 
@@ -57,13 +57,16 @@ skimr::skim(sleep)
 ###
 
 ```{r}
-chart(sleep, ~ facebook_and_messenger_time %col=% age) + geom_histogram(na.rm = TRUE)
+chart(sleep, ~ facebook_and_messenger_time %fill=% age) + geom_bar(na.rm = TRUE)
 ```
 
+#####Analysis
 
+###
 
-
-
+```{r}
+chart(sleep,facebook_and_messenger_time ~age %col=%age) + geom_point() 
+```
 
 
 
