@@ -105,11 +105,11 @@ sleep$facebook_and_messenger_time_rec <- cut(sleep$facebook_and_messenger_time, 
                                              breaks=c(0, 0.5, 1, 2, 3))
 
 
-a<- chart(sleep,~bed_time %fill=%other_social_network_time_rec) + geom_bar(position = "dodge")
+chart(sleep,~bed_time %fill=%other_social_network_time_rec) + geom_bar(position = "dodge")
 
-b<-chart(sleep,~bed_time %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge")
+chart(sleep,~bed_time %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge")
 
-combine_charts(list (a,b))
+#combine_charts(list (a,b))
 ```
 
 ```{r}
@@ -121,6 +121,36 @@ sleep$video_game_time_rec <- cut(sleep$video_game_time, include.lowest=FALSE,  r
 chart(sleep,~bed_time %fill=%video_game_time_rec) + geom_bar(position = "dodge",na.rm=TRUE)
 ```
 
+```{r}
+## Cutting sleep$bed_time into sleep$BD(20-24)
+sleep$BDA <- cut(sleep$bed_time, include.lowest=TRUE,  right=TRUE,
+                       breaks=c(20, 21, 22, 23, 24,  25))
+## Cutting sleep$bed_time into sleep$BD("0-10")
+sleep$BDB <- cut(sleep$bed_time, include.lowest=FALSE,  right=TRUE,
+                        breaks=c(0,1,2,3,4,5,6,7,8,9 ,10))
+
+sleep <-filter(sleep, other_social_network_time_rec != "NA")
+sleep1 <-filter(sleep, BDA != "NA")
+sleep2 <-filter(sleep, BDB != "NA")
+
+
+ chart(sleep1,~BDA %fill=%other_social_network_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%other_social_network_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+
+ chart(sleep1,~BDA %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+chart(sleep1,~BDA %fill=%video_game_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%video_game_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+```
 
 #Discussion and evaluation
 
