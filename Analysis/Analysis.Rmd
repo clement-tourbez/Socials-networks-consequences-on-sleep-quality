@@ -37,7 +37,9 @@ SciViews::R
 
 
 ```{r importation, message=FALSE, warning=FALSE}
-sleep  <- read("./data/sleep.rds")
+#sleep  <- read("../DATA/sleep.rds")
+
+sleep <- read$csv("https://docs.google.com/spreadsheets/d/15bi2eKujJLabLjSyodTHFJKFzx1dk-GtS9fnImSb1-Y/export?format=csv", locale = locale(decimal_mark = ","))
 ```
 
 
@@ -100,7 +102,7 @@ la tranche d'age 20 - 40 est la plus imprtante mais c'est du au valeur extrème 
  
 
 ```{r}
-chart(sleep,~ video_game_time  %col=%sex) + geom_density(na.rm = TRUE) 
+chart(sleep,video_game_time~ sex  %col=%sex) + geom_boxplot(na.rm = TRUE)
 ```
 
 #### Analysis
