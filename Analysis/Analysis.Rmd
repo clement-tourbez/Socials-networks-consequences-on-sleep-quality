@@ -51,21 +51,99 @@ skimr::skim(sleep)
 
 ##Charts and analysis
 
-###Global  repartition of the time spend for social networks and video game in relation with the age
+### Global repartition of the time spend for social networks and video game in relation with the age and the sex.
 
 ```{r}
 chart(sleep,video_game_time ~ age %col=% age) + geom_point(na.rm = TRUE)
 ```
 
+#### Analysis
+
+en français (car l'anglish c'est compliqué): le graphique nous représente le temps de jeu vidéo effecté par les différents individus de notre échantillonage on peut constater que les plus grands temps de jeu vidéo sont réalisé par les jeunes individus. Les personnes plus agés ont un temps de jeu en général moins élevé.
+
+```{r}
+sleep_age<- mutate(sleep, moins_vingt = age <= 20 , moins_quarante = age <= 40 & age > 20 , moins_soixante = age <= 60 & age > 40, moins_octante = age <= 80 & age > 60, plus_octante = age > 80)
+
+# chut on est devenu suisse c'est plus rapide à écrire
+ 
+sleep_age<- gather(sleep_age, moins_vingt , moins_quarante, moins_soixante, moins_octante, plus_octante, key = "categorie_age", value = "groupe_age")
+
+sleep_age <- filter (sleep_age, groupe_age != FALSE)
+```
+
+```{r}
+sleep_vingt_jeu <- filter(sleep_age , categorie_age == "moins_vingt" )
+sleep_vingt_jeu <- filter (sleep_vingt_jeu, video_game_time != "NA")
+sleep_vingt_jeu<- summarise (sleep_vingt_jeu, "moins_vingt" = mean(video_game_time))
+
+sleep_quarante_jeu <- filter(sleep_age , categorie_age == "moins_quarante" )
+sleep_quarante_jeu <- filter (sleep_quarante_jeu, video_game_time != "NA")
+sleep_quarante_jeu<- summarise (sleep_quarante_jeu, "moins_quarante" = mean(video_game_time))
+
+sleep_soixante_jeu <- filter(sleep_age , categorie_age == "moins_soixante" )
+sleep_soixante_jeu <- filter (sleep_soixante_jeu, video_game_time != "NA")
+sleep_soixante_jeu <- summarise (sleep_soixante_jeu, "moins_soixante" = mean(video_game_time))
+
+sleep_octante_jeu <- filter(sleep_age , categorie_age == "moins_octante" )
+sleep_octante_jeu  <- filter (sleep_octante_jeu , video_game_time != "NA")
+sleep_octante_jeu <- summarise (sleep_octante_jeu , "moins_octante" = mean(video_game_time))
+
+sleep_cent_jeu <- filter(sleep_age , categorie_age == "plus_octante" )
+sleep_cent_jeu  <- filter (sleep_cent_jeu , video_game_time != "NA")
+sleep_cent_jeu <- summarise (sleep_cent_jeu , "plus_octante" = mean(video_game_time))
+
+sleep_age_jeu<- bind_cols(sleep_vingt_jeu, sleep_quarante_jeu, sleep_soixante_jeu, sleep_octante_jeu, sleep_cent_jeu)
+knitr::kable(sleep_age_jeu, digits = 2)
+
+```
+la tranche d'age 20 - 40 est la plus imprtante mais c'est du au valeur extrème qui modifie la moyenne, l'autre valeur étrange est la valeur des plus 80 là c'est du un petit nombre d'individus
+ 
+
 ```{r}
 chart(sleep,~ video_game_time  %col=%sex) + geom_density(na.rm = TRUE) 
 ```
 
+#### Analysis
 
-#####Analysis
+Sur ce graphique on peut remarqué que les garçons ont un temps de jeu plus important que j'ai les filles.. L'autre constatation est que le temps de jeu des garçons est très varié par contre chez les filles le temps de jeu est le même chez beaucoup de filles.
+
 ```{r}
 chart(sleep,facebook_and_messenger_time ~age %col=%age) + geom_point(na.rm = TRUE) 
 ```
+#### Analysis
+
+La répartition est plus varié que pour le temps de jeu mais la partie la plus jeune de la population passe un temps plus important que les autres parties de la population .
+
+
+```{r}
+sleep_vingt_social <- filter(sleep_age , categorie_age == "moins_vingt" )
+sleep_vingt_social <- filter (sleep_vingt_social , facebook_and_messenger_time != "NA")
+sleep_vingt_social <- summarise (sleep_vingt_social , "moins_vingt" = mean(facebook_and_messenger_time))
+
+sleep_quarante_social <- filter(sleep_age , categorie_age == "moins_quarante" )
+sleep_quarante_social <- filter (sleep_quarante_social , facebook_and_messenger_time!= "NA")
+sleep_quarante_social <- summarise (sleep_quarante_social , "moins_quarante" = mean(facebook_and_messenger_time))
+
+sleep_soixante_social <- filter(sleep_age , categorie_age == "moins_soixante" )
+sleep_soixante_social <- filter (sleep_soixante_social , facebook_and_messenger_time != "NA")
+sleep_soixante_social <- summarise (sleep_soixante_social , "moins_soixante" = mean(facebook_and_messenger_time))
+
+sleep_octante_social <- filter(sleep_age , categorie_age == "moins_octante" )
+sleep_octante_social <- filter (sleep_octante_social , facebook_and_messenger_time != "NA")
+sleep_octante_social <- summarise (sleep_octante_social , "moins_octante" = mean(facebook_and_messenger_time))
+
+sleep_cent_social <- filter(sleep_age , categorie_age == "plus_octante" )
+sleep_cent_social <- filter (sleep_cent_social , facebook_and_messenger_time != "NA")
+sleep_cent_social <- summarise (sleep_cent_social , "plus_octante" = mean(facebook_and_messenger_time))
+
+sleep_age_social  <- bind_cols(sleep_vingt_social , sleep_quarante_social , sleep_soixante_social , sleep_octante_social , sleep_cent_social )
+knitr::kable(sleep_age_social , digits = 2)
+
+```
+
+#### Analysis
+
+Plus on grandit moins on regarde les réseaux sociaux, cependant il y a une moyenne pour la tranche d'age 20-40 car c'est à cette période que les réseaux sociaux ont vu le jour.
 
 ```{r}
 chart(sleep,~ facebook_and_messenger_time  %col=%sex) + geom_density(na.rm = TRUE) 
@@ -101,11 +179,11 @@ sleep$facebook_and_messenger_time_rec <- cut(sleep$facebook_and_messenger_time, 
                                              breaks=c(0, 0.5, 1, 2, 3))
 
 
-a<- chart(sleep,~bed_time %fill=%other_social_network_time_rec) + geom_bar(position = "dodge")
+chart(sleep,~bed_time %fill=%other_social_network_time_rec) + geom_bar(position = "dodge")
 
-b<-chart(sleep,~bed_time %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge")
+chart(sleep,~bed_time %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge")
 
-combine_charts(list (a,b))
+#combine_charts(list (a,b))
 ```
 
 ```{r}
@@ -117,6 +195,36 @@ sleep$video_game_time_rec <- cut(sleep$video_game_time, include.lowest=FALSE,  r
 chart(sleep,~bed_time %fill=%video_game_time_rec) + geom_bar(position = "dodge",na.rm=TRUE)
 ```
 
+```{r}
+## Cutting sleep$bed_time into sleep$BD(20-24)
+sleep$BDA <- cut(sleep$bed_time, include.lowest=TRUE,  right=TRUE,
+                       breaks=c(20, 21, 22, 23, 24,  25))
+## Cutting sleep$bed_time into sleep$BD("0-10")
+sleep$BDB <- cut(sleep$bed_time, include.lowest=FALSE,  right=TRUE,
+                        breaks=c(0,1,2,3,4,5,6,7,8,9 ,10))
+
+sleep <-filter(sleep, other_social_network_time_rec != "NA")
+sleep1 <-filter(sleep, BDA != "NA")
+sleep2 <-filter(sleep, BDB != "NA")
+
+
+ chart(sleep1,~BDA %fill=%other_social_network_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%other_social_network_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+
+ chart(sleep1,~BDA %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%facebook_and_messenger_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+chart(sleep1,~BDA %fill=%video_game_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+chart(sleep2,~BDB %fill=%video_game_time_rec) + geom_bar(position = "dodge", na.rm = FALSE)
+
+
+
+```
 
 #Discussion and evaluation
 
