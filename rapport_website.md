@@ -1,13 +1,16 @@
 ---
 title: "Data_social_network"
-author: "Clément-Thomas-Youri-Brieux-Vincent-Lucie"
+author: "Clément Tourbez"
 date: "13/11/2018"
 ---
 
+Here the gitHub repository : 
 
+https://github.com/clement-tourbez/Socials-networks-consequences-on-sleep-quality
 
+Here all the contributors to this rapport:
 
-
+https://github.com/clement-tourbez/Socials-networks-consequences-on-sleep-quality/graphs/contributors
 
 #Introduction
 
@@ -47,7 +50,7 @@ First we can see  a significant difference between girls and boys 's interrest a
 
 
 
- ### Between age group
+### Between age group
 
 
 ![](figure/figure1.png)
