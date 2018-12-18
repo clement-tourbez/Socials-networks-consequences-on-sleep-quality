@@ -6,7 +6,7 @@ output: html_document
 ---
 #Introduction
 
-Recently, there have been a lot of discussions about the effects of social network and video games on sleeping hours. We wanted to make some research about that subject and thus we gather some data about some factors that may help us understands the influence of video games and social network and the differences between genders
+Recently, there have been a lot of discussions about the effects of social network and video games on sleeping hours. We wanted to make some research about that subject and thus we gather some data about some factors that may help us understands the influence of video games and social network and the differences between genders.
 
 
 
@@ -50,23 +50,58 @@ visdat::vis_dat(sleep)
 
 
 ```{r}
-chart(sleep, facebook_and_messenger_time ~bed_time) + geom_point()
+chart(sleep, facebook_and_messenger_time ~bed_time %col=% age_rec) + geom_point()
 ```
 
 
 ```{r}
-chart(sleep, video_game_time ~bed_time) + geom_point()
+chart(sleep, video_game_time ~bed_time %col=% age_rec) + geom_point()
 ```
 
 ```{r}
 
-chart(sleep,other_social_network_time~bed_time) + geom_point()
+chart(sleep,other_social_network_time~bed_time %col=% age_rec) + geom_point()
 ```
 
 
 
+```{r}
+a <-chart(sleep ,video_game_time~ age_rec %col=% age_rec) + geom_violin() + coord_flip() + scale_color_manual(values= c("#00FFBF", "#2E64FE"))
+
+b <-chart(sleep ,other_social_network_time~ age_rec %col=% age_rec) + geom_violin() + coord_flip() + scale_color_manual(values= c("#00FFBF", "#2E64FE"))
+
+c <-chart(sleep ,facebook_and_messenger_time~ age_rec %col=% age_rec) + geom_violin() + coord_flip() + scale_color_manual(values= c("#00FFBF", "#2E64FE"))
 
 
+
+
+
+
+
+
+
+combine_charts(list(a,b,c))
+
+```
+
+```{r}
+a <-chart(sleep ,video_game_time~ sex %col=% sex) + geom_violin() + coord_flip() + scale_color_manual(values= c("#642EFE", "#FF4000"))
+
+b <-chart(sleep ,other_social_network_time~ sex %col=% sex) + geom_violin() + coord_flip() + scale_color_manual(values= c("#642EFE", "#FF4000"))
+
+c <-chart(sleep ,facebook_and_messenger_time~ sex %col=% sex) + geom_violin() + coord_flip() + scale_color_manual(values= c("#642EFE", "#FF4000"))
+
+
+
+
+
+
+
+
+
+combine_charts(list(a,b,c))
+
+```
 
 
 
