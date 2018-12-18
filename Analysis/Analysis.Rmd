@@ -98,7 +98,6 @@ sleep_age_jeu<- bind_cols(sleep_vingt_jeu, sleep_quarante_jeu, sleep_soixante_je
 knitr::kable(sleep_age_jeu, digits = 2)
 
 ```
-la tranche d'age 20 - 40 est la plus imprtante mais c'est du au valeur extrème qui modifie la moyenne, l'autre valeur étrange est la valeur des plus 80 là c'est du un petit nombre d'individus
 
 the people between 20 and 40 years represent the highest value but it is because of an extreme value that changed the result, there is also a strange value above 80 years old but it is because of the small sample for this cluster
 
@@ -110,7 +109,7 @@ chart(sleep,video_game_time~ sex  %col=%sex) + geom_boxplot(na.rm = TRUE)
 
 #### Analysis
 
-Sur ce graphique on peut remarqué que les garçons ont un temps de jeu plus important que j'ai les filles.. L'autre constatation est que le temps de jeu des garçons est très varié par contre chez les filles le temps de jeu est le même chez beaucoup de filles.
+
 
 On this graph, we can see that the boys overall plays more than girls. We can also see that the playing time for the boys is very varied, however, the overal video game playing time for girls is approximately  the same and not very varied 
 
@@ -119,7 +118,7 @@ chart(sleep,facebook_and_messenger_time ~age %col=%age) + geom_point(na.rm = TRU
 ```
 #### Analysis
 
-La répartition est plus varié que pour le temps de jeu mais la partie la plus jeune de la population passe un temps plus important que les autres parties de la population .
+
 The repartition is more varied than the video game time distribution, but we can still see a difference with the younger population which spend more time overal than the other population
 
 ```{r}
@@ -150,7 +149,7 @@ knitr::kable(sleep_age_social , digits = 2)
 
 #### Analysis
 
-Plus on grandit moins on regarde les réseaux sociaux, cependant il y a une moyenne pour la tranche d'age 20-40 car c'est à cette période que les réseaux sociaux ont vu le jour.
+
 The more we age, the less we spend time of social network, however, the people around 20 or 40 year old spend overal more time on social network as it is around that time that socail networks were born
 ```{r}
 chart(sleep,~ facebook_and_messenger_time  %col=%sex) + geom_density(na.rm = TRUE) 
