@@ -34,6 +34,8 @@ sleep$other_rec <- cut(sleep$other_social_network_time, include.lowest=TRUE,  ri
                        breaks=c(0, 1, 2, 5))
 
 
+
+
 visdat::vis_dat(sleep)
 
 write$rds(sleep, file = "DATA/sleep.rds", compress = "gz")

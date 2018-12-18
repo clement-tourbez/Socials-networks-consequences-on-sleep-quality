@@ -50,17 +50,17 @@ visdat::vis_dat(sleep)
 
 
 ```{r}
-chart(sleep, facebook_and_messenger_time ~bed_time %col=% age_rec) + geom_point()
+chart(sleep, facebook_and_messenger_time ~bed_time ) + geom_jitter() + geom_density_2d()
 ```
 
 
 ```{r}
-chart(sleep, video_game_time ~bed_time %col=% age_rec) + geom_point()
+chart(sleep, video_game_time ~bed_time %col=% age_rec %shape=% sex) + geom_jitter() +  scale_color_manual(values= c("#00FFBF", "#2E64FE"))
 ```
 
 ```{r}
 
-chart(sleep,other_social_network_time~bed_time %col=% age_rec) + geom_point()
+chart(sleep,other_social_network_time~bed_time %col=% age_rec %shape=% sex) + geom_jitter()+ scale_color_manual(values= c("#00FFBF", "#2E64FE"))
 ```
 
 
